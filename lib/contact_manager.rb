@@ -1,10 +1,33 @@
 # this class handles the  search and add
-class ContactManager
-  def initialize(name, number)
+require_relative 'data_manager'
+class ContactManager < DataManager
+  def initialize(name=nil,phone_number=nil)
+    if name != nil && phone_number != nil
+      prepare_user_table
+      user_hash={'user_name'=>name,'phone_number'=>phone_number}
+      save_into_db('user_data',user_hash)
+    end
+    connect_db
+  end
+  def self.search_user
+    look_up_user
   end
 
-  def add_new_user(name, phone_number)
-    if name.empty? && phone_number.empty?
+  def self.is_num_str?(num)
+    num =~ /^\d+$/?true:false
+  end
+
+   def self.purify_number(number)
+    if !is_num_str?(number)
+      puts "Invalid phone Number. Try again"
+      number = gets.chomp
+      purify_number(number)
+    end
+    number
+  end
+
+  def add_new_contact(name, phone_number)
+    if !name.empty? && !phone_number.empty?
       saveContact(name, number)
     else
       false
@@ -16,7 +39,7 @@ class ContactManager
     phone_number
   end
 
-  def search_user(name)
+  def search_contact(name)
     if name.empty?
       look_up_data(name)
     else

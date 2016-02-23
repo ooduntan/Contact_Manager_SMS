@@ -1,4 +1,4 @@
-class ContactManager < DataManager
+class ContactManager
 
 	def initialize(name, number)
 
@@ -15,8 +15,8 @@ class ContactManager < DataManager
 	end
 
 	def checkPhoneNumber?(phoneNUmber)
-		phoneNUmber=phoneNUmber.to_i
-		if
+			phoneNUmber=phoneNUmber.to_i
+
 	end
 
 	def searchUser(name)
@@ -37,6 +37,3 @@ class ContactManager < DataManager
 	end
 
 end
-
-nas=ContactManager.new()
-nas.searchUser()
