@@ -1,25 +1,27 @@
-class ContactManager
+class ContactManager < DataManager
 
 	def initialize(name, number)
-		require 'rubygems'
-		require 'sqlite3'
-		@db=SQLite3::Database.new("contacts.db")
-		@db.execute("CREATE TABLE IF NOT EXISTS contacts_data (contact_idx INTEGER AUTOINCREMENT, contact_name TEXT NOT NULL, contact_phoneNumber CHAR(50))")
-		@db.execute("CREATE TABLE IF NOT EXISTS contacts_message_data (message_idx INTEGER AUTOINCREMENT, contact_idx INT NOT NULL, message TEXT NOT NULL)")
+
 	end
 
 	def addNewUser(name, phoneNUmber)
+
 		if name.length>0 && phoneNUmber.length>0
-			@db.execute("INSERT INTO contacts_data (contact_name, contact_phoneNumber) VALUES('#{name}', '#{phoneNUmber}')")
+			saveContact(name, number)
 		else
 			false
 		end
 
 	end
 
+	def checkPhoneNumber?(phoneNUmber)
+		phoneNUmber=phoneNUmber.to_i
+		if
+	end
+
 	def searchUser(name)
 		if name.length>0
-			@db.execute("SELECT * FROM contact_name LIKE %'#{name}'%")
+			lookUpData(name)
 		else
 			false
 		end
